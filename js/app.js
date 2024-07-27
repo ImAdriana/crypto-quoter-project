@@ -3,6 +3,7 @@ const monedasSelect = document.querySelector('#monedas');
 const container = document.querySelector('.container');
 
 const formulario = document.querySelector('#formulario');
+const resultado = document.querySelector('#resultado');
 
 const objBusqueda = {
     moneda: '',
@@ -53,6 +54,8 @@ function submitFormulario(e) {
         mostrarAlerta('Ambos campos son indispensables');
         return;
     }
+    // Consultar la API con los resultados
+    consultarAPI();
 }
 
 function leerValor(e) {
@@ -63,7 +66,6 @@ function leerValor(e) {
 }
 
 function mostrarAlerta(mensaje) {
-    console.log(mensaje);
     const alerta = document.querySelector('.bg-red-300');
     // Revisa si no existe la clase para mostrar el error
     if (!alerta) {
@@ -92,4 +94,72 @@ function mostrarAlerta(mensaje) {
             alerta.remove();
         }, 3000);
     }
+}
+
+function consultarAPI() {
+    const { moneda, criptomoneda } = objBusqueda;
+    const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
+
+    sppiner();
+    setTimeout(() => {
+        fetch(url)
+            .then((respuesta) => respuesta.json())
+            .then((data) =>
+                mostarCotizacionHTML(data.DISPLAY[criptomoneda][moneda])
+            );
+    }, 3000);
+}
+
+function mostarCotizacionHTML(cotizacion) {
+    limpiarHTML();
+    const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE } = cotizacion;
+
+    const precio = document.createElement('p');
+    precio.innerHTML = `El precio es de: <span>${PRICE}</span>`;
+    precio.classList.add('text-2xl');
+
+    const granDia = document.createElement('p');
+    granDia.innerHTML = `Precio más alto: <span>${HIGHDAY}</span>`;
+    granDia.classList.add('text-2xl');
+
+    const precioBajo = document.createElement('p');
+    precioBajo.innerHTML = `Precio más bajo: <span>${LOWDAY}</span>`;
+    precioBajo.classList.add('text-2xl');
+
+    const cambioDia = document.createElement('p');
+    cambioDia.innerHTML = `Variación últimas 24hrs: <span>${CHANGEPCT24HOUR}%</span>`;
+    cambioDia.classList.add('text-2xl');
+
+    const actual = document.createElement('p');
+    actual.innerHTML = `Actualización: <span>${LASTUPDATE}</span>`;
+    actual.classList.add('text-2xl');
+
+    resultado.appendChild(precio);
+    resultado.appendChild(granDia);
+    resultado.appendChild(precioBajo);
+    resultado.appendChild(cambioDia);
+    resultado.appendChild(actual);
+}
+
+function leerValor(e) {
+    // Establece la propiedad del objeto cuando la clave no es conocida
+    objBusqueda[e.target.name] = e.target.value;
+}
+
+function limpiarHTML() {
+    while (resultado.firstChild) {
+        resultado.removeChild(resultado.firstChild);
+    }
+}
+
+function sppiner() {
+    limpiarHTML();
+    const load = document.createElement('div');
+    load.classList.add('spinner');
+    load.innerHTML = `
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+    `;
+
+    resultado.appendChild(load);
 }
