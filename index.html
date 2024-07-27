@@ -3,7 +3,87 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Cotizar criptomonedas</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     </head>
-    <body></body>
+
+    <body>
+        <div class="bg-gray-100">
+            <section>
+                <div class="relative flex-col items-center p-8">
+                    <div class="bg-white opacity-30"></div>
+                    <div class="text-center">
+                        <p class="mt-18 text-3xl font-medium text-black">
+                            Cotizador de monedas<span class="block"> </span>
+                        </p>
+                    </div>
+                    <form class="max-w-sm mx-auto">
+                        <div class="mt-10">
+                            <label
+                                class="block mb-2 font-bold text-sm font-medium text-black">
+                                Elige tu moneda</label
+                            >
+                            <select
+                                class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                id="moneda"
+                                name="moneda">
+                                <option selected="">Moneda</option>
+                                <option value="USD">
+                                    Dolar Estadounidense
+                                </option>
+                                <option value="MXN">Peso Mexicano</option>
+                                <option value="GBP">Libras</option>
+                                <option value="EUR">Euros</option>
+                            </select>
+                        </div>
+                        <div class="mt-12">
+                            <label
+                                class="block mb-2 font-bold text-sm font-medium text-black">
+                                Elige tu criptomoneda</label
+                            >
+                            <select
+                                class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                id="criptomoneda"
+                                name="criptomoneda">
+                                <option selected="">Moneda</option>
+                                <option value="USD">
+                                    Dolar Estadounidense
+                                </option>
+                                <option value="MXN">Peso Mexicano</option>
+                                <option value="GBP">Libras</option>
+                                <option value="EUR">Euros</option>
+                            </select>
+                            <div class="mx-auto mt-14">
+                                <input
+                                    type="submit"
+                                    class="w-full px-4 py-2 text-sm text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" />
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-5 text-xs text-gray-400 lg:text-center">
+                        <div class="mt-5"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="px-5 py-14 mx-auto">
+                <div class="flex mt-10">
+                    <div
+                        class="mx-auto"
+                        x-data="{ year: new Date().getFullYear() }">
+                        <span class="mx-auto text-sm font-medium text-gray-500">
+                            Copyright © <span x-text="year">2024</span>
+                            <p
+                                aria-label="Adriana Clemente"
+                                class="text-blue-500 hover:text-gray-500">
+                                Adriana Clemente
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>
